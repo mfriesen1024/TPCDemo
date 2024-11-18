@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://dovpfdwsqavgl"]
+
+[ext_resource type="PackedScene" uid="uid://dy4tphdk7igpc" path="res://Prefab/player.tscn" id="1_xxwnj"]
+
+[sub_resource type="Gradient" id="Gradient_3lwwy"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kjtto"]
+gradient = SubResource("Gradient_3lwwy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ftnh"]
+albedo_texture = SubResource("GradientTexture1D_kjtto")
+
+[sub_resource type="BoxMesh" id="BoxMesh_7lkpe"]
+material = SubResource("StandardMaterial3D_2ftnh")
+size = Vector3(5, 0.1, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yxnto"]
+size = Vector3(5, 0.1, 5)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_xxwnj")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_7lkpe")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_yxnto")
