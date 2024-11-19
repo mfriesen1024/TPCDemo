@@ -33,9 +33,23 @@ public partial class PlayerController : CharacterBody3D
 
         velocity=HandleWalk(velocity);
 
+        HandleLook();
+
         Velocity = velocity;
         MoveAndSlide();
     }
+
+    // Replace with proper input handling.
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        base._UnhandledInput(@event);
+
+        if(@event is InputEventMouseMotion mouseMotion)
+        {
+            lookDir = mouseMotion.Relative;
+        }
+    }
+
 
     private Vector3 HandleJump(Vector3 velocity)
     {
@@ -65,5 +79,17 @@ public partial class PlayerController : CharacterBody3D
         }
 
         return velocity;
+    }
+
+    // Replace this with a proper look script.
+    private void HandleLook()
+    {
+        // Rotate the camera parent by our vertical mouse move.
+        camParent.RotateObjectLocal(camParent.Basis.X,-lookDir.Y/50);
+        // Then rotate ourselves by our horizontal move.
+        RotateObjectLocal(Basis.Y, -lookDir.X/50);
+
+        // Replace with proper input handling
+        lookDir = Vector2.Zero;
     }
 }
