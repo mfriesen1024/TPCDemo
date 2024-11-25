@@ -2,7 +2,7 @@ using Godot;
 
 internal partial class DashingPC : PlayerController
 {
-    [Export(hint: PropertyHint.None, hintString: "Allows deceleration when too fast.")] bool debugEnableSlowdown = false;
+    [Export(hintString: "Allows deceleration when too fast.")] bool debugEnableSlowdown = false;
     [Export(hintString:"In units s^-2")] float force = 40;
     [Export] float maxSpeed = 8;
     [Export] int length = 15;
