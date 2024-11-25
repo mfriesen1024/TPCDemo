@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://dy4tphdk7igpc"]
 
-[ext_resource type="Script" path="res://src/PlayerController.cs" id="1_l4tkh"]
+[ext_resource type="Script" path="res://src/DashingPC.cs" id="1_fyumg"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k3ppp"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_8stw7"]
 
 [node name="Player" type="CharacterBody3D"]
-script = ExtResource("1_l4tkh")
+script = ExtResource("1_fyumg")
 
 [node name="camParent" type="Node3D" parent="."]
 
