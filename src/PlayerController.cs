@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class PlayerController : CharacterBody3D
 {
@@ -10,6 +9,8 @@ public partial class PlayerController : CharacterBody3D
 
     Vector2 moveDir;
     Vector2 lookDir;
+
+    public bool shouldProcessWalk = false;
 
     public override void _Ready()
     {
@@ -29,9 +30,9 @@ public partial class PlayerController : CharacterBody3D
             velocity += GetGravity() * (float)delta;
         }
 
-        velocity=HandleJump(velocity);
+        velocity = HandleJump(velocity);
 
-        velocity=HandleWalk(velocity);
+        if (shouldProcessWalk) { velocity = HandleWalk(velocity); }
 
         SetLookRotations(delta);
 
@@ -44,7 +45,7 @@ public partial class PlayerController : CharacterBody3D
     {
         base._UnhandledInput(@event);
 
-        if(@event is InputEventMouseMotion mouseMotion)
+        if (@event is InputEventMouseMotion mouseMotion)
         {
             lookDir = mouseMotion.Relative;
         }
@@ -85,9 +86,9 @@ public partial class PlayerController : CharacterBody3D
     private void HandleLook()
     {
         // Rotate the camera parent by our vertical mouse move.
-        camParent.RotateObjectLocal(camParent.Basis.X,-lookDir.Y/50);
+        camParent.RotateObjectLocal(camParent.Basis.X, -lookDir.Y / 50);
         // Then rotate ourselves by our horizontal move.
-        RotateObjectLocal(Basis.Y, -lookDir.X/50);
+        RotateObjectLocal(Basis.Y, -lookDir.X / 50);
 
         // Replace with proper input handling
         lookDir = Vector2.Zero;
