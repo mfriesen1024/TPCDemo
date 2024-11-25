@@ -45,5 +45,7 @@ internal partial class DashingPC : PlayerController
 
         // Tick our cooldown tracker.
         if (timer > -cooldown) { timer--; }
+
+        MoveAndSlide();
     }
 }
