@@ -18,6 +18,7 @@ internal partial class DashingPC : PlayerController
         // Replace with proper input handling.
         // If our timer is 0 and we're pressing the dash key, set timer to length.
         bool dashInput = Input.IsActionJustPressed("dash");
+        GD.Print($"Dashinput: {dashInput}.");
         if (dashInput && timer <= -cooldown) { timer = length; isDashing = true; }
 
         if (timer > 0)
@@ -31,21 +32,25 @@ internal partial class DashingPC : PlayerController
             if (flatVel.Length() < maxSpeed)
             {
                 // Add force.
-                Velocity += Basis.Z * (float)factor;
+                Vector3 flatForward = Basis.Z; flatForward.Y = 0; flatForward = flatForward.Normalized();
+                Velocity += flatForward * (float)factor;
+                GD.Print($"Hi, dash should happen now. Also factor is {factor}");
             }
 
             // If we're too fast, attempt to slow down. Might just disable this actually.
             if (flatVel.Length() > maxSpeed && debugEnableSlowdown)
             {
                 Velocity = Velocity.Lerp(Velocity.Normalized() * maxSpeed, 0.9f);
+                GD.Print("Oh, we're slowing down.");
             }
+
+            GD.Print($"Apparently we're moving by {Velocity} per second.");
+            MoveAndSlide();
         }
         // If we're on cooldown, set dash bool to false.
         else { isDashing = false; }
 
         // Tick our cooldown tracker.
         if (timer > -cooldown) { timer--; }
-
-        MoveAndSlide();
     }
 }
