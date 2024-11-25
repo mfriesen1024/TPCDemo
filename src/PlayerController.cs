@@ -33,7 +33,7 @@ public partial class PlayerController : CharacterBody3D
 
         velocity=HandleWalk(velocity);
 
-        HandleLook();
+        SetLookRotations(delta);
 
         Velocity = velocity;
         MoveAndSlide();
@@ -91,5 +91,26 @@ public partial class PlayerController : CharacterBody3D
 
         // Replace with proper input handling
         lookDir = Vector2.Zero;
+    }
+
+    void SetLookRotations(double delta)
+    {
+        // Replace with proper settings stuff.
+        float mouseSensitivityMod = 1;
+        // Clamp X rot so the player can't do silly things with it.
+        float oldX = camParent.Basis.GetEuler().X;
+        float xDelta = -(float)delta * lookDir.Y * mouseSensitivityMod;
+        float newX = oldX + xDelta;
+        float toRadians = Mathf.Pi / 180;
+        newX = Mathf.Clamp(newX, -74 * toRadians, 14 * toRadians);
+
+        // Reassign xDelta based on our clamping.
+        xDelta = newX - oldX;
+
+        // Now execute the rotations
+        camParent.RotateX(xDelta);
+        RotateY(-(float)delta * lookDir.X * mouseSensitivityMod);
+
+        lookDir = Vector2.Zero; // Apparently we dont get an event when relative is zero.
     }
 }
