@@ -6,7 +6,10 @@ internal partial class DashingPC : PlayerController
     [Export] float force = 5;
     [Export] float maxSpeed = 6;
     [Export] int length = 15;
+    [Export] int cooldown = 15;
     int timer = 0;
+
+    public bool isDashing = false;
 
     public override void _PhysicsProcess(double delta)
     {
@@ -15,7 +18,7 @@ internal partial class DashingPC : PlayerController
         // Replace with proper input handling.
         // If our timer is 0 and we're pressing the dash key, set timer to length.
         bool dashInput = Input.IsActionJustPressed("dash");
-        if (dashInput && timer == 0) { timer = length; }
+        if (dashInput && timer <= -cooldown) { timer = length; isDashing = true; }
 
         if (timer > 0)
         {
@@ -37,5 +40,10 @@ internal partial class DashingPC : PlayerController
                 Velocity = Velocity.Lerp(Velocity.Normalized() * maxSpeed, 0.9f);
             }
         }
+        // If we're on cooldown, set dash bool to false.
+        else { isDashing = false; }
+
+        // Tick our cooldown tracker.
+        if (timer > -cooldown) { timer--; }
     }
 }
