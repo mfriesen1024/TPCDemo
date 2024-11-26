@@ -49,4 +49,12 @@ internal partial class DashingPC : PlayerController
         // Tick our cooldown tracker.
         if (timer > -cooldown) { timer--; }
     }
+    internal override void Damage()
+    {
+        if(!isDashing)
+        {
+            base.Damage();
+        }
+        else { GD.Print("Player avoided damage by dashing."); }
+    }
 }

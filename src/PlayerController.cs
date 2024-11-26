@@ -117,7 +117,7 @@ public partial class PlayerController : CharacterBody3D
     }
 
     // Replace with a more robust damage system
-    internal void Damage()
+    internal virtual void Damage()
     {
         GD.Print("Player took damage!");
     }
