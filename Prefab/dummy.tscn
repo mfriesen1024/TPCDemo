@@ -18,7 +18,7 @@ contactHitbox = NodePath("Area3D")
 mesh = SubResource("CapsuleMesh_df27i")
 skeleton = NodePath("../Area3D")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="." groups=["foe"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("CapsuleShape3D_iaiyi")

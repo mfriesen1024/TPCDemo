@@ -1,17 +1,32 @@
 using Godot;
+using TPCTest.src;
 
 internal partial class DashingPC : PlayerController
 {
-    [ExportCategory("Debug")]
-    [Export(hintString: "Allows deceleration when too fast.")] bool debugEnableSlowdown = false;
+    [ExportCategory("Refs")]
+    [Export] Area3D dashHitbox;
     [ExportCategory("Stats")]
-    [Export(hintString:"In units s^-2")] float force = 40;
+    [Export(hintString: "In units s^-2")] float force = 40;
     [Export] float maxSpeed = 8;
     [Export] int length = 15;
     [Export] int cooldown = 15;
+    [ExportCategory("Debug")]
+    [Export(hintString: "Allows deceleration when too fast.")] bool debugEnableSlowdown = false;
     int timer = 0;
 
     public bool isDashing = false;
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+        if (dashHitbox != null)
+        {
+            dashHitbox.BodyEntered += DashTriggerEntered;
+            dashHitbox.AreaEntered += DashTriggerEntered;
+        }
+        else { GD.Print("Player dash hitbox is null."); }
+    }
 
     public override void _PhysicsProcess(double delta)
     {
@@ -52,9 +67,19 @@ internal partial class DashingPC : PlayerController
         if (timer > -cooldown) { timer--; }
     }
 
+    private void DashTriggerEntered(Node3D body)
+    {
+        // Theres probably a better way to do this.
+        if (body.IsInGroup("foe"))
+        {
+            Foe foe = body.GetParent() as Foe;
+            foe.Damage();
+        }
+    }
+
     internal override void Damage()
     {
-        if(!isDashing)
+        if (!isDashing)
         {
             base.Damage();
         }

@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 project/assembly_name="TPCTest"
 
+[global_group]
+
+foe="This thing attacks players"
+
 [input]
 
 left={
