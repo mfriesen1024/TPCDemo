@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cc2emb01dmbo2"]
+
+[ext_resource type="Script" path="res://src/Dummy.cs" id="1_0rg0c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkf5h"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_df27i"]
+material = SubResource("StandardMaterial3D_wkf5h")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iaiyi"]
+
+[node name="Dummy" type="Node3D" node_paths=PackedStringArray("meshInstance", "contactHitbox")]
+script = ExtResource("1_0rg0c")
+meshInstance = NodePath("MeshInstance3D")
+contactHitbox = NodePath("Area3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_df27i")
+skeleton = NodePath("../Area3D")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CapsuleShape3D_iaiyi")
