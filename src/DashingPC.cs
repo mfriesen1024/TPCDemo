@@ -2,7 +2,9 @@ using Godot;
 
 internal partial class DashingPC : PlayerController
 {
+    [ExportCategory("Debug")]
     [Export(hintString: "Allows deceleration when too fast.")] bool debugEnableSlowdown = false;
+    [ExportCategory("Stats")]
     [Export(hintString:"In units s^-2")] float force = 40;
     [Export] float maxSpeed = 8;
     [Export] int length = 15;
@@ -49,6 +51,7 @@ internal partial class DashingPC : PlayerController
         // Tick our cooldown tracker.
         if (timer > -cooldown) { timer--; }
     }
+
     internal override void Damage()
     {
         if(!isDashing)

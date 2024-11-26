@@ -3,8 +3,9 @@ using System;
 
 public partial class PlayerController : CharacterBody3D
 {
-    public const float Speed = 5.0f;
-    public const float JumpVelocity = 4.5f;
+    [ExportCategory("Move Stats")]
+    [Export] public float Speed = 5.0f;
+    [Export] public float JumpVelocity = 4.5f;
 
     Node3D camParent;
 
