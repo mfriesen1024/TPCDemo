@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 public partial class PlayerController : CharacterBody3D
 {
@@ -113,5 +114,11 @@ public partial class PlayerController : CharacterBody3D
         RotateY(-(float)delta * lookDir.X * mouseSensitivityMod);
 
         lookDir = Vector2.Zero; // Apparently we dont get an event when relative is zero.
+    }
+
+    // Replace with a more robust damage system
+    internal void Damage()
+    {
+        GD.Print("Player took damage!");
     }
 }
