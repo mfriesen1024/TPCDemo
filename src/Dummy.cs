@@ -7,7 +7,7 @@ namespace TPCTest.src
     {
         [Export] MeshInstance3D meshInstance;
         StandardMaterial3D material;
-        [Export] Color defaultColour = new Color(1,1,1), hurtColour = new Color(0.5f,0.1f,0.2f);
+        [Export] Color defaultColour = new Color(1,0.75f,0.5f), hurtColour = new Color(0.5f,0.1f,0.1f);
 
         public override void _Ready()
         {
