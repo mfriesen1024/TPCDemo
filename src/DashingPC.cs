@@ -25,7 +25,7 @@ internal partial class DashingPC : PlayerController
             dashHitbox.BodyEntered += DashTriggerEntered;
             dashHitbox.AreaEntered += DashTriggerEntered;
         }
-        else { GD.Print("Player dash hitbox is null."); }
+        else { GD.PrintErr("Player dash hitbox is null."); }
     }
 
     public override void _PhysicsProcess(double delta)
