@@ -69,11 +69,15 @@ internal partial class DashingPC : PlayerController
 
     private void DashTriggerEntered(Node3D body)
     {
-        // Theres probably a better way to do this.
-        if (body.IsInGroup("foe"))
+        // Firstly, we should only do things if the player is dashing.
+        if (isDashing)
         {
-            Foe foe = body.GetParent() as Foe;
-            foe.Damage();
+            // Theres probably a better way to handle detection.
+            if (body.IsInGroup("foe"))
+            {
+                Foe foe = body.GetParent() as Foe;
+                foe.Damage();
+            }
         }
     }
 
