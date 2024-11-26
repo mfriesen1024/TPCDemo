@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dovpfdwsqavgl"]
+[gd_scene load_steps=8 format=3 uid="uid://dovpfdwsqavgl"]
 
 [ext_resource type="PackedScene" uid="uid://dy4tphdk7igpc" path="res://Prefab/player.tscn" id="1_xxwnj"]
+[ext_resource type="PackedScene" uid="uid://cc2emb01dmbo2" path="res://Prefab/dummy.tscn" id="2_wsvnt"]
 
 [sub_resource type="Gradient" id="Gradient_3lwwy"]
 
@@ -29,3 +30,6 @@ skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_yxnto")
+
+[node name="Dummy" parent="." instance=ExtResource("2_wsvnt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, -4)
