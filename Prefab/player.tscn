@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dy4tphdk7igpc"]
+[gd_scene load_steps=7 format=3 uid="uid://dy4tphdk7igpc"]
 
 [ext_resource type="Script" path="res://src/DashingPC.cs" id="1_fyumg"]
-[ext_resource type="Texture2D" uid="uid://c2qyv04nh6gb1" path="res://Arting/Particle/fire_02.png" id="2_7dplr"]
 [ext_resource type="Material" uid="uid://b4m43btb12qa7" path="res://Res/DoGDashPM.tres" id="2_llw6e"]
+[ext_resource type="QuadMesh" uid="uid://bo1anb1djlegx" path="res://Res/DoGDashPass.tres" id="3_eql1k"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k3ppp"]
 
@@ -10,15 +10,6 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_yl7xs"]
 radius = 0.75
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjx0h"]
-transparency = 1
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("2_7dplr")
-
-[sub_resource type="QuadMesh" id="QuadMesh_l4n56"]
-material = SubResource("StandardMaterial3D_wjx0h")
-size = Vector2(0.2, 0.2)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("dashHitbox")]
 script = ExtResource("1_fyumg")
@@ -45,4 +36,4 @@ emitting = false
 amount = 64
 transform_align = 1
 process_material = ExtResource("2_llw6e")
-draw_pass_1 = SubResource("QuadMesh_l4n56")
+draw_pass_1 = ExtResource("3_eql1k")
