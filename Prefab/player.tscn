@@ -41,6 +41,8 @@ mesh = SubResource("CylinderMesh_8stw7")
 shape = SubResource("CylinderShape3D_yl7xs")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
 amount = 64
+transform_align = 1
 process_material = ExtResource("2_llw6e")
 draw_pass_1 = SubResource("QuadMesh_l4n56")
