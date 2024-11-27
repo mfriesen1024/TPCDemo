@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dy4tphdk7igpc"]
+[gd_scene load_steps=13 format=3 uid="uid://dy4tphdk7igpc"]
 
 [ext_resource type="Script" path="res://src/DashingPC.cs" id="1_fyumg"]
+[ext_resource type="Texture2D" uid="uid://c2qyv04nh6gb1" path="res://Arting/Particle/fire_02.png" id="2_7dplr"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k3ppp"]
 
@@ -8,6 +9,35 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_yl7xs"]
 radius = 0.75
+
+[sub_resource type="Gradient" id="Gradient_50cdr"]
+offsets = PackedFloat32Array(0, 0.490909, 1)
+colors = PackedColorArray(0.2905, 0.740083, 0.83, 1, 0.6248, 0.82896, 0.88, 1, 0.209, 0.6289, 0.95, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_n8v21"]
+gradient = SubResource("Gradient_50cdr")
+
+[sub_resource type="Curve" id="Curve_h22uw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4ivsi"]
+curve = SubResource("Curve_h22uw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_602bf"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+color_initial_ramp = SubResource("GradientTexture1D_n8v21")
+emission_curve = SubResource("CurveTexture_4ivsi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjx0h"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_7dplr")
+
+[sub_resource type="QuadMesh" id="QuadMesh_l4n56"]
+material = SubResource("StandardMaterial3D_wjx0h")
+size = Vector2(0.2, 0.2)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("dashHitbox")]
 script = ExtResource("1_fyumg")
@@ -28,3 +58,7 @@ mesh = SubResource("CylinderMesh_8stw7")
 
 [node name="dashHitboxShape" type="CollisionShape3D" parent="dashHitbox"]
 shape = SubResource("CylinderShape3D_yl7xs")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_602bf")
+draw_pass_1 = SubResource("QuadMesh_l4n56")
