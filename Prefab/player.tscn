@@ -11,9 +11,11 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_yl7xs"]
 radius = 0.75
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("dashHitbox")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("dashHitbox", "particles")]
 script = ExtResource("1_fyumg")
 dashHitbox = NodePath("dashHitbox")
+particles = NodePath("GPUParticles3D")
+particleProcessMaterial = ExtResource("2_llw6e")
 
 [node name="camParent" type="Node3D" parent="."]
 

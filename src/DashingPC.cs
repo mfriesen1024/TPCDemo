@@ -5,6 +5,8 @@ internal partial class DashingPC : PlayerController
 {
     [ExportCategory("Refs")]
     [Export] Area3D dashHitbox;
+    [Export] GpuParticles3D particles;
+    [Export] ParticleProcessMaterial particleProcessMaterial;
     [ExportCategory("Stats")]
     [Export(hintString: "In units s^-2")] float force = 40;
     [Export] float maxSpeed = 8;
@@ -19,6 +21,8 @@ internal partial class DashingPC : PlayerController
     public override void _Ready()
     {
         base._Ready();
+
+        if(particles == null || particleProcessMaterial == null) { GD.PrintErr("Dash particle stuff is null."); }
 
         if (dashHitbox != null)
         {
@@ -35,7 +39,7 @@ internal partial class DashingPC : PlayerController
         // Replace with proper input handling.
         // If our timer is 0 and we're pressing the dash key, set timer to length.
         bool dashInput = Input.IsActionJustPressed("dash");
-        if (dashInput && timer <= -cooldown) { timer = length; isDashing = true; shouldProcessWalk = false; }
+        if (dashInput && timer <= -cooldown) { SetDashState(true); }
 
         if (timer > 0)
         {
@@ -61,10 +65,21 @@ internal partial class DashingPC : PlayerController
             MoveAndSlide();
         }
         // If we're on cooldown, set dash bool to false.
-        else { isDashing = false; shouldProcessWalk = true; }
+        else { SetDashState(false); }
 
         // Tick our cooldown tracker.
         if (timer > -cooldown) { timer--; }
+    }
+
+    private void SetDashState(bool active)
+    {
+        if (active) { 
+            timer = length; isDashing = true; 
+            shouldProcessWalk = false;
+            particles.ProcessMaterial = particleProcessMaterial;
+            particles.Emitting = true;
+        }
+        else { isDashing = false;shouldProcessWalk = true; particles.Emitting = false; }
     }
 
     private void DashTriggerEntered(Node3D body)
